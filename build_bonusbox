@@ -1,0 +1,23 @@
+#! /bin/sh
+set -eu
+
+BONUSFILE=src/bonus/validateChecksum.asm
+if [ ! -f "${BONUSFILE}" ]; then
+    echo "File \"${BONUSFILE}\" not found. Abort build."
+    exit -1;
+fi
+
+
+if [ -z ${1+x} ]; then
+    echo "Please provide a test file as argument."
+    echo "Usage ./build_bonusbox <Testfile>.asm"
+    exit
+fi
+
+
+SOURCES="src/util.asm src/bonus/validateChecksum.asm src/moduloStr.asm src/knr2iban.asm src/iban2knr.asm"
+echo "Building folder \"bonusbox\" for test $1"
+rm -rf bonusbox/*
+mkdir -p bonusbox
+cp $SOURCES $1 bonusbox/
+

@@ -1,0 +1,17 @@
+#! /bin/sh
+set -eu
+
+
+if [ -z ${1+x} ]; then
+    echo "Please provide a test file as argument."
+    echo "Usage ./build_testbox <Testfile>.asm"
+    exit
+fi
+
+
+SOURCES="src/util.asm src/validateChecksum.asm src/moduloStr.asm src/knr2iban.asm src/iban2knr.asm"
+echo "Building folder \"testbox\" for test $1"
+rm -rf testbox/*
+mkdir -p testbox
+cp $SOURCES $1 testbox/
+
